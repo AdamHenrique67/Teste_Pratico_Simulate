@@ -5,25 +5,33 @@ import { DataFile } from "../src/domain/gateways/dataFile";
 import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('savePlan', () => {
-  test('should call DataFile with correct params', async() => {
-    const data = {
-      cdPlan: 1,
+  let dataFile: MockProxy<DataFile>
+  let data: any 
+  let sut: SimulatePlan
+
+  beforeAll(() =>{
+    dataFile = mock()
+    data = {
+      cdPlano: 1,
       quantidadeBeneficiarios: 1,
       pessoas: [{
-        name: 'Joao',
+        nome: 'Joao',
         idade: 17
       }, {
-        name: 'Adam',
+        nome: 'Adam',
         idade: 21
       }]
-      
     }
-    const dataFile = mock<DataFile>()
-    const sut = new SimulatePlan(dataFile)
+  })
 
+  beforeEach(() => {
+    sut = new SimulatePlan(dataFile)
+  })
+
+  test('should call DataFile with correct params', async() => {
     await sut.simulate(data)
 
-    expect(dataFile.getPlan).toHaveBeenCalledWith({cdPlan: data.cdPlan, quantidadeBeneficiarios: data.quantidadeBeneficiarios})
+    expect(dataFile.getPlan).toHaveBeenCalledWith({cdPlano: data.cdPlano, quantidadeBeneficiarios: data.quantidadeBeneficiarios})
     expect(dataFile.getPlan).toHaveBeenCalledTimes(1)
   })
 })

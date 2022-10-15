@@ -1,21 +1,29 @@
 import { DataFile } from "../gateways/dataFile";
 
 type Pessoa = {
-  name: string
+  nome: string
   idade: number
 }
 
 type SavePlan = {
-  cdPlan: number
+  cdPlano: number
   quantidadeBeneficiarios: number
   pessoas: Pessoa[]
 }
 
+type Plano  = {
+  codigo: number,
+  nomePlano: string;
+  minimo_vidas: number
+  faixa1: number
+  faixa2: number
+  faixa3: number
+}
 export class SimulatePlan {
   constructor(private readonly datafile: DataFile){}
 
-  async simulate({ cdPlan, quantidadeBeneficiarios, pessoas}: SavePlan): Promise<void> {
-    this.datafile.getPlan({cdPlan, quantidadeBeneficiarios})
+  async simulate(dados: SavePlan): Promise<void> {
+    const plano = await this.datafile.getPlan({cdPlano: dados.cdPlano, quantidadeBeneficiarios: dados.quantidadeBeneficiarios})
   }
 }
   
