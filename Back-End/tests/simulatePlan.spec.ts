@@ -109,5 +109,24 @@ describe('savePlan', () => {
     expect(result.pessoas[0].valorPlanoPessoa).toBe(plano.faixa3)
     expect(result.pessoas[1].valorPlanoPessoa).toBe(plano.faixa3)
   })
+
+  test('should return Error when age is less than zero', async() => {
+    data = {
+      cdPlano: 1,
+      quantidadeBeneficiarios: 2,
+      pessoas: [
+        {
+        nome: 'Joao',
+        idade: -1
+      },
+      {
+        nome: 'Adam',
+        idade: 50
+      }]
+    }
+    const promise = sut.simulate(data)
+
+    await expect(promise).rejects.toThrow(new Error("name ou idade inválidas"))
+  })
   
 })

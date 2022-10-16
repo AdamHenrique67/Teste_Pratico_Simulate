@@ -10,7 +10,7 @@ export class SimulatePlan implements Simulate {
     let contador = 0
     dados.pessoas.forEach((pessoa: Pessoa) => {
       if(pessoa.nome === null || pessoa.idade < 0) {
-        return new Error('name ou idade inválidas')
+        throw new Error('name ou idade inválidas')
       }else{
         if(pessoa.idade >= 0 && pessoa.idade < 18){
           pessoa = Object.assign({}, pessoa, { valorPlanoPessoa: plano.faixa1})
