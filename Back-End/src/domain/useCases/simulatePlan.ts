@@ -17,7 +17,7 @@ export class SimulatePlan implements Simulate {
           teste.push(pessoa)
           contador = plano.faixa1 + contador
         }
-        if(pessoa.idade >= 18 && pessoa.idade < 40){
+        if(pessoa.idade >= 18 && pessoa.idade <= 40){
           pessoa = Object.assign({}, pessoa, { valorPlanoPessoa: plano.faixa2})
           teste.push(pessoa)
           contador = plano.faixa2 + contador
