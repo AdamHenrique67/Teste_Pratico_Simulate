@@ -8,7 +8,7 @@ namespace DataFile {
     quantidadeBeneficiarios: number
   }
   export type Result = {
-    codigo: number,
+    cdPlano: number,
     nomePlano: string;
     minimo_vidas: number
     faixa1: number
