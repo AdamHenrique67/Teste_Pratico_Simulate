@@ -2,7 +2,7 @@ export interface DataFile {
   getPlan: (params:DataFile.Params) => Promise<DataFile.Result>
 }
 
-namespace DataFile {
+export namespace DataFile {
   export type Params = {
     cdPlano: number
     quantidadeBeneficiarios: number

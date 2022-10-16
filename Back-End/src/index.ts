@@ -1,5 +1,4 @@
 import fs from 'fs'
-
 const planos = fs.readFileSync('./src/jsons/prices.json', 'utf-8')
 const plans = JSON.parse(planos)
 

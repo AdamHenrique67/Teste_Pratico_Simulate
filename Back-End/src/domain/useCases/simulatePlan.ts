@@ -1,5 +1,5 @@
-import { Pessoa, PessoaResult, Simulate } from "../entities/simulate";
-import { DataFile } from "../gateways/dataFile";
+import { Pessoa, Simulate } from "@/src/domain/contracts";
+import { DataFile } from "@/src/domain/gateways/dataFile";
 
 export class SimulatePlan implements Simulate {
   constructor(private readonly datafile: DataFile){}

@@ -1,9 +1,9 @@
-import { SimulatePlan } from "../src/domain/useCases/simulatePlan"
-import { DataFile } from "../src/domain/gateways/dataFile";
+import { SimulatePlan } from "../../../src/domain/useCases/simulatePlan"
+import { DataFile } from "../../../src/domain/gateways/dataFile";
 
 
 import { mock, MockProxy } from 'jest-mock-extended'
-import { Simulate } from "../src/domain/entities/simulate";
+import { Simulate } from "../../../src/domain/contracts/simulate";
 
 describe('savePlan', () => {
   let dataFile: MockProxy<DataFile>
