@@ -49,7 +49,7 @@ describe('savePlan', () => {
     expect(dataFile.getPlan).toHaveBeenCalledTimes(1)
   })
 
-  test('should receive value person faixa 1 when age under 18 ', async() => {
+  test('should receive the value of faixa1 in the valuePlanoPessoa when under 18 years of age', async() => {
     data = {
       cdPlano: 1,
       quantidadeBeneficiarios: 1,
@@ -70,6 +70,6 @@ describe('savePlan', () => {
     expect(result.pessoas[1].valorPlanoPessoa).toBe(plano.faixa1)
   })
 
- 
+  
   
 })
