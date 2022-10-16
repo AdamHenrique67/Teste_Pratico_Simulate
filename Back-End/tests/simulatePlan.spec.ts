@@ -33,7 +33,7 @@ describe('savePlan', () => {
   test('should call DataFile with correct params', async() => {
     data = {
       cdPlano: 1,
-      quantidadeBeneficiarios: 1,
+      quantidadeBeneficiarios: 2,
       pessoas: [{
         nome: 'Joao',
         idade: 17
@@ -52,7 +52,7 @@ describe('savePlan', () => {
   test('should receive the value of faixa1 in the valorPlanoPessoa when under 18 years of age', async() => {
     data = {
       cdPlano: 1,
-      quantidadeBeneficiarios: 1,
+      quantidadeBeneficiarios: 2,
       pessoas: [
         {
         nome: 'Joao',
@@ -73,7 +73,7 @@ describe('savePlan', () => {
   test('should receive the value of range 2 in the valorPlanoPessoa when age greater than 17 years and less than or equal to 40', async() => {
     data = {
       cdPlano: 1,
-      quantidadeBeneficiarios: 1,
+      quantidadeBeneficiarios: 2,
       pessoas: [
         {
         nome: 'Joao',
@@ -88,6 +88,26 @@ describe('savePlan', () => {
 
     expect(result.pessoas[0].valorPlanoPessoa).toBe(plano.faixa2)
     expect(result.pessoas[1].valorPlanoPessoa).toBe(plano.faixa2)
+  })
+
+  test('should receive the value of faixa3 in thePessoaValue when aged over 40', async() => {
+    data = {
+      cdPlano: 1,
+      quantidadeBeneficiarios: 2,
+      pessoas: [
+        {
+        nome: 'Joao',
+        idade: 41
+      },
+      {
+        nome: 'Adam',
+        idade: 50
+      }]
+    }
+    const result = await sut.simulate(data)
+
+    expect(result.pessoas[0].valorPlanoPessoa).toBe(plano.faixa3)
+    expect(result.pessoas[1].valorPlanoPessoa).toBe(plano.faixa3)
   })
   
 })
