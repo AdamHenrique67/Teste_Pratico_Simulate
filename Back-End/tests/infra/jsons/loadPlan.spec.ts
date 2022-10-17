@@ -1,44 +1,8 @@
-import { DataFile, PlanModel, PriceModel, PricesPlanDif } from "@/src/domain/gateways"
+import { PlanModel, PriceModel } from "@/src/domain/gateways"
 import { FileJson } from "@/src/domain/gateways"
-import { Plano } from "@/src/domain/entities"
+import { LoadPlan } from "@/src/infra/jsons"
 
 import { MockProxy, mock } from "jest-mock-extended"
-export class LoadPlan implements DataFile{
-
-  constructor(private readonly fileSystem: FileJson){}
-
-  async getPlan(params: DataFile.Params): Promise<DataFile.Result> {
-    const { plans, prices } = await this.fileSystem.getDataFiles()
-
-    const planSelected = plans.find((plano) => {
-      return plano.codigo === params.cdPlano
-    })
-
-    let pricePlan: PricesPlanDif
-    const pricesPlan: PricesPlanDif[] = []
-    prices.filter((price) => {
-      if(price.codigo === params.cdPlano && price.minimo_vidas<= params.quantidadeBeneficiarios){
-        const teste = Object.assign({}, price, { dif: params.quantidadeBeneficiarios - price.minimo_vidas})
-        pricesPlan.push(teste)
-      }
-    })
-
-    if(pricesPlan.length > 1){
-      pricePlan = pricesPlan.reduce(function(prev, current) {
-         return prev.dif < current.dif ? prev : current
-      })
-    }else{
-      pricePlan = pricesPlan[0]
-    }    
-    if(planSelected && pricePlan){
-      const plan = new Plano(planSelected, pricePlan)
-      return plan
-    }
-    throw new Error("Invalid Plan")
-  }
-
-}
-
 
 describe('LoadPlan', () => {
   let sut: LoadPlan

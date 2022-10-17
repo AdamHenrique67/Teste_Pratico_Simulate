@@ -1,4 +1,5 @@
-import { PlanModel, PricesPlanDif } from "@/src/domain/gateways"
+import { PlanModel } from "@/src/domain/gateways"
+import { PricesPlanDif } from "@/src/domain/contracts"
 
 export class Plano {
   cdPlano: number

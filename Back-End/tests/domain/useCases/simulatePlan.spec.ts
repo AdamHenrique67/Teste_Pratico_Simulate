@@ -1,5 +1,5 @@
 import { SimulatePlan } from "@/src/domain/useCases/simulatePlan"
-import { DataFile } from "@/src/domain/gateways/dataFile";
+import { DataFile } from "@/src/domain/contracts";
 import { Simulate } from "@/src/domain/contracts/simulate";
 
 import { mock, MockProxy } from 'jest-mock-extended'
