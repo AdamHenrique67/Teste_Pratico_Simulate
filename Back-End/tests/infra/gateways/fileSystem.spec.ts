@@ -1,9 +1,17 @@
+import { FileJson, PlanModel, PriceModel } from '@/src/domain/gateways'
 import fs from 'fs'
 
-export class FileSystem {
-  async getDataFiles (): Promise<void> {
-    const precos = fs.readFileSync('./src/jsons/plans.json', 'utf-8')
-    const prices = fs.readFileSync('./src/jsons/prices.json', 'utf-8')
+export class FileSystem implements FileJson {
+  async getDataFiles (): Promise<FileJson.Result> {
+    let plans: PlanModel[] = []
+    let prices: PriceModel[] = []
+    const plansString = fs.readFileSync('./src/jsons/plans.json', 'utf-8')
+    const pricesString = fs.readFileSync('./src/jsons/prices.json', 'utf-8')
+    if(plansString && pricesString){
+      plans = JSON.parse(plansString)
+      prices = JSON.parse(pricesString)
+    }
+    return {plans, prices}  
   }
 }
 
@@ -26,5 +34,13 @@ describe('DataFile', () => {
   
     expect(fakeFs.readFileSync).toHaveBeenCalledTimes(2)
   })
- })
+  
+  test('should rethrow if fs throws', async () => {
+    fakeFs.readFileSync.mockImplementationOnce(() => { throw new Error('file_error')})
+
+    const promise = sut.getDataFiles()
+
+    await expect(promise).rejects.toThrow(new Error('file_error'))
+  })
+})
  
