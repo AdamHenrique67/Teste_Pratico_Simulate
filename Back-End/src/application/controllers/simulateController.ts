@@ -1,19 +1,18 @@
-import { SimulatePlan } from "@/src/domain/useCases";
-import { HttpResponse, serverError, ok } from "@/src/application/helpers/http";
 import { Request, Response } from 'express'
+import { Simulate } from "@/src/domain/contracts";
 type Pessoa = {
   nome: string
   idade: number
 }
 
 type HttpRequest = {
-  cdPlano: number
+  registro: string
   quantidadeBeneficiarios: number
   pessoas: Pessoa[]
 }
 
 export class SimulateController {
-  constructor(private readonly simulatePlan: SimulatePlan){}
+  constructor(private readonly simulatePlan: Simulate){}
 
   async handle(req: Request, res: Response): Promise<any> {
     try{

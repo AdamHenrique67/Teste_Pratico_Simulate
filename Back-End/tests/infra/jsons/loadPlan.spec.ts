@@ -10,13 +10,13 @@ describe('LoadPlan', () => {
   let plans: PlanModel[] 
   let prices: PriceModel[]
   let data: {
-    cdPlano: number
+    registro: string
     quantidadeBeneficiarios: number
   }
   
   beforeAll(() => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 5
     }
 
@@ -71,10 +71,10 @@ describe('LoadPlan', () => {
     expect(fileSystem.getDataFiles).toHaveBeenCalledTimes(1)
   })
 
-  test('should return a plan that has the code equal to the code received', async () => {
+  test('should return correct plan', async () => {
     const result = await sut.getPlan(data)
 
-    expect(result.cdPlano).toBe(data.cdPlano)
+    expect(result.cdPlano).toBe(plans[0].codigo)
   })
 
   test('should return a plan with correct values ​​in relation to the minimum number of lives', async () => {
@@ -85,9 +85,9 @@ describe('LoadPlan', () => {
     expect(result.faixa3).toBe(prices[0].faixa3)
   })
 
-  test('should return an invalid plan error when cdPlan is invalid', async () => {
+  test('should return an invalid plan error when registro is invalid', async () => {
     data = {
-      cdPlano: 0,
+      registro: 'invalid',
       quantidadeBeneficiarios: 5
     }
     const promise = sut.getPlan(data)
@@ -97,7 +97,7 @@ describe('LoadPlan', () => {
 
   test('should return an invalid plan error when quantidadeBeneficiarios is under 1', async () => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 0
     }
     const promise = sut.getPlan(data)

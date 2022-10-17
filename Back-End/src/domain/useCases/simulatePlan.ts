@@ -3,7 +3,7 @@ export class SimulatePlan implements Simulate {
   constructor(private readonly datafile: DataFile){}
 
   async simulate(dados: Simulate.Params): Promise<Simulate.Result> {
-    const plano = await this.datafile.getPlan({cdPlano: dados.cdPlano, quantidadeBeneficiarios: dados.quantidadeBeneficiarios})
+    const plano = await this.datafile.getPlan({registro: dados.registro, quantidadeBeneficiarios: dados.quantidadeBeneficiarios})
     const teste: any[] = []
     let contador = 0
     dados.pessoas.forEach((pessoa: Pessoa) => {

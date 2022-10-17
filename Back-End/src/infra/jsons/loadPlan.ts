@@ -9,23 +9,25 @@ export class LoadPlan implements DataFile{
   async getPlan(params: DataFile.Params): Promise<DataFile.Result> {
     const { plans, prices } = await this.fileSystem.getDataFiles()
     const planSelected = plans.find((plano) => {
-      return plano.codigo === params.cdPlano
+      return plano.registro === params.registro
     })
 
-    const pricePlan = await this.getCorrectPrice(prices, params)
-    if(planSelected && pricePlan){
+    if(planSelected){
+      const pricePlan = await this.getCorrectPrice(prices, params.quantidadeBeneficiarios, planSelected!.codigo)
+      if(planSelected && pricePlan){
       const plan = new Plano(planSelected, pricePlan)
       return plan
+      }
     }
     throw new Error("Invalid Plan")
   }
 
-  private async getCorrectPrice(prices: PriceModel[], params: DataFile.Params): Promise<PricesPlanDif> {
+  private async getCorrectPrice(prices: PriceModel[], quantidadeBeneficiarios: number, cdPlano: number): Promise<PricesPlanDif> {
     let pricePlan: PricesPlanDif
     const pricesPlan: PricesPlanDif[] = []
     prices.filter((price) => {
-      if(price.codigo === params.cdPlano && price.minimo_vidas<= params.quantidadeBeneficiarios){
-        const teste = Object.assign({}, price, { dif: params.quantidadeBeneficiarios - price.minimo_vidas})
+      if(price.codigo === cdPlano && price.minimo_vidas<= quantidadeBeneficiarios){
+        const teste = Object.assign({}, price, { dif: quantidadeBeneficiarios - price.minimo_vidas})
         pricesPlan.push(teste)
       }
     })

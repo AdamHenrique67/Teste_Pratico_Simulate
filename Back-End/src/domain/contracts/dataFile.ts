@@ -3,7 +3,7 @@ export interface DataFile {
 }
 export namespace DataFile {
   export type Params = {
-    cdPlano: number
+    registro: string
     quantidadeBeneficiarios: number
   }
   export type Result = {

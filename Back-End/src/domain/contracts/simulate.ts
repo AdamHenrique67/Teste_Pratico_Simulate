@@ -15,7 +15,7 @@ export type PessoaResult = {
 
 export namespace Simulate {
   export type Params = {
-    cdPlano: number
+    registro: string
     quantidadeBeneficiarios: number
     pessoas: Pessoa[]
   }

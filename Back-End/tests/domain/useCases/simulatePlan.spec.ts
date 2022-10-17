@@ -31,7 +31,7 @@ describe('savePlan', () => {
 
   test('should call DataFile with correct params', async() => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 2,
       pessoas: [{
         nome: 'Joao',
@@ -44,13 +44,13 @@ describe('savePlan', () => {
 
     await sut.simulate(data)
 
-    expect(dataFile.getPlan).toHaveBeenCalledWith({cdPlano: data.cdPlano, quantidadeBeneficiarios: data.quantidadeBeneficiarios})
+    expect(dataFile.getPlan).toHaveBeenCalledWith({registro: data.registro, quantidadeBeneficiarios: data.quantidadeBeneficiarios})
     expect(dataFile.getPlan).toHaveBeenCalledTimes(1)
   })
 
   test('should receive the value of faixa1 in the valorPlanoPessoa when under 18 years of age', async() => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
@@ -71,7 +71,7 @@ describe('savePlan', () => {
 
   test('should receive the value of range 2 in the valorPlanoPessoa when age greater than 17 years and less than or equal to 40', async() => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
@@ -91,7 +91,7 @@ describe('savePlan', () => {
 
   test('should receive the value of faixa3 in thePessoaValue when aged over 40', async() => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
@@ -111,7 +111,7 @@ describe('savePlan', () => {
 
   test('should return Error when age is less than zero', async() => {
     data = {
-      cdPlano: 1,
+      registro: 'reg1',
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
