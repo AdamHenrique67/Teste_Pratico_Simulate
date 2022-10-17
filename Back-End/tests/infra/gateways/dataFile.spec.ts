@@ -120,5 +120,15 @@ describe('LoadPlan', () => {
     expect(result.faixa2).toBe(prices[0].faixa2)
     expect(result.faixa3).toBe(prices[0].faixa3)
   })
+
+  test('should return an invalid plan when cdPlan is invalid', async () => {
+    data = {
+      cdPlano: 0,
+      quantidadeBeneficiarios: 5
+    }
+    const promise = sut.getPlan(data)
+
+    await expect(promise).rejects.toThrow(new Error("Invalid Plan"))
+  })
 })
 
