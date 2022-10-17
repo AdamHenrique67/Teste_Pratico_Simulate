@@ -1,6 +1,6 @@
 import fs from 'fs'
 const planos = fs.readFileSync('./src/jsons/prices.json', 'utf-8')
-const plans = JSON.parse(planos)
+const plans: Plano[] = JSON.parse(planos)
 
 type Plano  = {
   codigo: number,
@@ -10,7 +10,7 @@ type Plano  = {
   faixa3: number
 }
 
-const t = plans.filter((plano: Plano) => {
+const t = plans.filter((plano) => {
   return plano.codigo === 1 && plano.minimo_vidas >=1 && plano.minimo_vidas<4
 })
 console.log(t)
