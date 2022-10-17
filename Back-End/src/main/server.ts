@@ -1,19 +1,12 @@
+import './config/module-alias'
 import 'reflect-metadata'
-import express, { json, Router } from 'express'
-import cors from 'cors'
+import { Router } from 'express'
 
-const app = express()
-app.use(cors())
-app.use(json())
-app.use((req, res, next) => {
- res.type('json')
- next()
-})
+import { app } from '@/src/main/config/app'
+import { makeSimulateController } from './factories/controllers/simulate-factory'
 
 const router = Router()
-router.post('/simulate', (req, res) => {
- res.send({ data: 'test' })
-})
+router.post('/simulate', (req, res) => makeSimulateController().handle(req.body))
 
 app.use(router)
 app.listen(8080, () => console.log('Server running at http://localhost:8080'))

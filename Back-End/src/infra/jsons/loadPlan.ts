@@ -8,7 +8,6 @@ export class LoadPlan implements DataFile{
 
   async getPlan(params: DataFile.Params): Promise<DataFile.Result> {
     const { plans, prices } = await this.fileSystem.getDataFiles()
-
     const planSelected = plans.find((plano) => {
       return plano.codigo === params.cdPlano
     })

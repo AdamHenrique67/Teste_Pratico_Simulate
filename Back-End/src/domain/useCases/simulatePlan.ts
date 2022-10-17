@@ -28,6 +28,7 @@ export class SimulatePlan implements Simulate {
       }
     })
     const result = Object.assign({}, { cdPlano: plano.cdPlano, nomePlano: plano.nomePlano, total: contador, pessoas: teste})
+    console.log(result)
     return result
   }
 

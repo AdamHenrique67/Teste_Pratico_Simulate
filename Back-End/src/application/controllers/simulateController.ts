@@ -1,5 +1,5 @@
 import { SimulatePlan } from "@/src/domain/useCases";
-import { HttpResponse, serverError } from "@/src/application/helpers/http";
+import { HttpResponse, serverError, ok } from "@/src/application/helpers/http";
 
 type Pessoa = {
   nome: string
@@ -15,13 +15,10 @@ type HttpRequest = {
 export class SimulateController {
   constructor(private readonly simulatePlan: SimulatePlan){}
 
-  async perform(params: HttpRequest): Promise<HttpResponse<any>> {
+  async handle(params: HttpRequest): Promise<HttpResponse<any>> {
     try{
-      const result = this.simulatePlan.simulate(params)
-      return {
-      statusCode: 200,
-      data: result
-      }
+      const result = await this.simulatePlan.simulate(params)
+      return ok(result)
     }catch(error){
       return serverError(error as Error)
     }
