@@ -121,7 +121,7 @@ describe('LoadPlan', () => {
     expect(result.faixa3).toBe(prices[0].faixa3)
   })
 
-  test('should return an invalid plan when cdPlan is invalid', async () => {
+  test('should return an invalid plan error when cdPlan is invalid', async () => {
     data = {
       cdPlano: 0,
       quantidadeBeneficiarios: 5
@@ -129,6 +129,13 @@ describe('LoadPlan', () => {
     const promise = sut.getPlan(data)
 
     await expect(promise).rejects.toThrow(new Error("Invalid Plan"))
+  })
+
+  test('should rethrow if FileJson throws', async () => {
+    fileSystem.getDataFiles.mockRejectedValueOnce(new Error('file_error'))
+    const promise = sut.getPlan(data)
+
+    await expect(promise).rejects.toThrow(new Error("file_error"))
   })
 })
 
