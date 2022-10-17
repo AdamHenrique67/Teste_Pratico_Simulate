@@ -131,6 +131,17 @@ describe('LoadPlan', () => {
     await expect(promise).rejects.toThrow(new Error("Invalid Plan"))
   })
 
+  test('should return an invalid plan error when quantidadeBeneficiarios is under 1', async () => {
+    data = {
+      cdPlano: 1,
+      quantidadeBeneficiarios: 0
+    }
+    const promise = sut.getPlan(data)
+
+    await expect(promise).rejects.toThrow(new Error("Invalid Plan"))
+  })
+
+
   test('should rethrow if FileJson throws', async () => {
     fileSystem.getDataFiles.mockRejectedValueOnce(new Error('file_error'))
     const promise = sut.getPlan(data)
