@@ -1,10 +1,14 @@
-import { DataFile, PricesPlanDif } from "@/src/domain/contracts"
+import { DataFile, PricesPlanDif, WriteDataFile } from "@/src/domain/contracts"
 import { Plano } from "@/src/domain/entities"
-import { FileJson, PriceModel } from "@/src/domain/gateways"
+import { FileJson, PriceModel, WriteFileJson } from "@/src/domain/gateways"
 
-export class LoadPlan implements DataFile{
+export class LoadPlan implements DataFile, WriteDataFile{
 
-  constructor(private readonly fileSystem: FileJson){}
+  constructor(private readonly fileSystem: FileJson & WriteFileJson){}
+
+  async writeFile (params: WriteDataFile.Params): Promise<void>{
+    await this.fileSystem.writeDataFile(params)
+  }
 
   async getPlan(params: DataFile.Params): Promise<DataFile.Result> {
     const { plans, prices } = await this.fileSystem.getDataFiles()

@@ -1,6 +1,6 @@
-import { Pessoa, Simulate, DataFile } from "@/src/domain/contracts";
+import { Pessoa, Simulate, DataFile, WriteDataFile } from "@/src/domain/contracts";
 export class SimulatePlan implements Simulate {
-  constructor(private readonly datafile: DataFile){}
+  constructor(private readonly datafile: DataFile & WriteDataFile){}
 
   async simulate(dados: Simulate.Params): Promise<Simulate.Result> {
     const plano = await this.datafile.getPlan({registro: dados.registro, quantidadeBeneficiarios: dados.quantidadeBeneficiarios})
@@ -31,6 +31,7 @@ export class SimulatePlan implements Simulate {
       }
     })
     const result = Object.assign({}, { cdPlano: plano.cdPlano, nomePlano: plano.nomePlano, total: contador, pessoas: teste})
+    await this.datafile.writeFile(result)
     return result
   }
 

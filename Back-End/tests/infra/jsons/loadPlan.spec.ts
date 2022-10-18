@@ -1,4 +1,4 @@
-import { PlanModel, PriceModel } from "@/src/domain/gateways"
+import { PlanModel, PriceModel, WriteFileJson } from "@/src/domain/gateways"
 import { FileJson } from "@/src/domain/gateways"
 import { LoadPlan } from "@/src/infra/jsons"
 
@@ -6,7 +6,7 @@ import { MockProxy, mock } from "jest-mock-extended"
 
 describe('LoadPlan', () => {
   let sut: LoadPlan
-  let fileSystem: MockProxy<FileJson>
+  let fileSystem: MockProxy<FileJson & WriteFileJson>
   let plans: PlanModel[] 
   let prices: PriceModel[]
   let data: {
@@ -65,10 +65,33 @@ describe('LoadPlan', () => {
     sut = new LoadPlan(fileSystem)
   })
 
-  test('should call FileJson', async () => {
+  test('should call FileJson.getDataFiles', async () => {
     await sut.getPlan(data)
 
     expect(fileSystem.getDataFiles).toHaveBeenCalledTimes(1)
+  })
+
+  test('should call FileJson.writeDataFiles', async () => {
+    const dataWrite = {
+      cdPlano: 1,
+      nomePlano: "Bitix Customer Plano 1",
+      total: 22,
+      pessoas: [
+          {
+              nome: "Adam Henrique",
+              idade: 21,
+              valorPlanoPessoa: 12
+          },
+          {
+              nome: "Joao Jota",
+              idade: 17,
+              valorPlanoPessoa: 10
+          }
+      ]
+    }
+    await sut.writeFile(dataWrite)
+
+    expect(fileSystem.writeDataFile).toHaveBeenCalledTimes(1)
   })
 
   test('should return correct plan', async () => {

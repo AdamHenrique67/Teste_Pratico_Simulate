@@ -1,11 +1,11 @@
 import { SimulatePlan } from "@/src/domain/useCases/simulatePlan"
-import { DataFile } from "@/src/domain/contracts";
+import { DataFile, WriteDataFile } from "@/src/domain/contracts";
 import { Simulate } from "@/src/domain/contracts/simulate";
 
 import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('savePlan', () => {
-  let dataFile: MockProxy<DataFile>
+  let dataFile: MockProxy<DataFile & WriteDataFile>
   let data: Simulate.Params 
   let sut: SimulatePlan
   let plano: any
@@ -29,7 +29,7 @@ describe('savePlan', () => {
     sut = new SimulatePlan(dataFile)
   })
 
-  test('should call DataFile with correct params', async() => {
+  test('should call DataFile.getPlan with correct params', async() => {
     data = {
       registro: 'reg1',
       quantidadeBeneficiarios: 2,
@@ -128,4 +128,23 @@ describe('savePlan', () => {
     await expect(promise).rejects.toThrow(new Error("name ou idade inválidas"))
   })
   
+  test('should call the DataFile.writeDataFile when the reg is valid', async() => {
+    data = {
+      registro: 'reg1',
+      quantidadeBeneficiarios: 2,
+      pessoas: [
+        {
+        nome: 'Joao',
+        idade: 18
+      },
+      {
+        nome: 'Adam',
+        idade: 40
+      }]
+    }
+
+    const result = await sut.simulate(data)
+
+    expect(dataFile.writeFile).toHaveBeenCalled()
+  })
 })
