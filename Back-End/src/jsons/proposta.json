@@ -1,12 +1,12 @@
 {
   "cdPlano": 1,
   "nomePlano": "Bitix Customer Plano 1",
-  "total": 22,
+  "total": 20,
   "pessoas": [
     {
       "nome": "Adam Henrique",
-      "idade": 21,
-      "valorPlanoPessoa": 12
+      "idade": 1,
+      "valorPlanoPessoa": 10
     },
     {
       "nome": "joao",
