@@ -1,5 +1,5 @@
-import { Request, Response } from 'express'
 import { Simulate } from "@/src/domain/contracts";
+import { badRequest, ok } from "@/src/application/helpers";
 type Pessoa = {
   nome: string
   idade: number
@@ -14,13 +14,12 @@ type HttpRequest = {
 export class SimulateController {
   constructor(private readonly simulatePlan: Simulate){}
 
-  async handle(req: Request, res: Response): Promise<any> {
+  async handle(req: HttpRequest): Promise<any> {
     try{
-      const params: HttpRequest = req.body
-      const result = await this.simulatePlan.simulate(params)
-      res.status(200).send(result)
+      const result = await this.simulatePlan.simulate(req)
+      return ok(result)
     }catch(error){
-      res.status(500).send('Server Error')
+      return badRequest(new Error("InvalidReg"))
     }
     
   }

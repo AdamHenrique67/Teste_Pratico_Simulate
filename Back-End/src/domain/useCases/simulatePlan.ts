@@ -4,6 +4,9 @@ export class SimulatePlan implements Simulate {
 
   async simulate(dados: Simulate.Params): Promise<Simulate.Result> {
     const plano = await this.datafile.getPlan({registro: dados.registro, quantidadeBeneficiarios: dados.quantidadeBeneficiarios})
+    if(!plano){
+      throw new Error('plano indefinido')
+    }
     const teste: any[] = []
     let contador = 0
     dados.pessoas.forEach((pessoa: Pessoa) => {
@@ -28,7 +31,6 @@ export class SimulatePlan implements Simulate {
       }
     })
     const result = Object.assign({}, { cdPlano: plano.cdPlano, nomePlano: plano.nomePlano, total: contador, pessoas: teste})
-    console.log(result)
     return result
   }
 
