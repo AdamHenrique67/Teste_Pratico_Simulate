@@ -27,12 +27,12 @@ Todos os comandos abaixo são feitos no terminal
 **1** - Faça um clone do repositório e acesse o diretório criado pelo clone.
 
 ```sh
-git clone https://github.com/AdamHenrique67/Teste.git && cd teste
+git clone https://github.com/AdamHenrique67/Teste_Pratico_Simulate.git && cd Teste_Pratico_Simulate
 ```
 
 ## Sobre o projeto
 
-### Estrutura de diretórios
+### Estrutura de diretórios do Back-end
 
 ```
 src/
@@ -63,12 +63,32 @@ src/
 - **Infra**: Implementaçãos dos repositórios(no Caso foi usado um json) de ferramentas de terceiros(no caso usei o FileSystem)
 - **Main**: Rotas, Middlewares, factories e configs
 
-### Testes
+### Executar o Projeto
+Com o terminal aberto
 
-Para rodas os testes
-
+Abra o VSCode usando o comando abaixo,mas não feche o terminal
 
 ```sh
-npm run test
+  code .
 ```
+Digite os comandos abaixo no terminal do VSCode
+
+```sh
+  cd Back-End && npm install && npm start
+```
+
+Volte para o primeiro terminal e digite o código abaixo para iniciar o Front-End
+
+```sh
+  cd Front-End && npm install && npm start
+```
+
+### Testes
+
+Cado deseje rodar os testes. Insira o comando abaixo dentro da pasta Back-End
+
+```sh
+  npm run test
+```
+
 
