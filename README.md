@@ -25,7 +25,7 @@ Abra o terminal
 **1** - Faça um clone do repositório e acesse o diretório criado pelo clone.
 
 ```sh
-https://github.com/AdamHenrique67/Teste_Pratico_Simulate.git && cd Teste_Pratico_Simulate
+git clone https://github.com/AdamHenrique67/Teste_Pratico_Simulate.git && cd Teste_Pratico_Simulate
 ```
 **2** - Use o comandos abaixo para abrir o VSCode e rodar o Back-End
 
@@ -42,6 +42,7 @@ cd Back-End && npm install && npm start
 ```sh
 cd Front-End && npm install && npm start
 ```
+**4** - Em seguida, copie o endereço local que aparecer na terminal e cole no navegador para ter acesso ao Front-End
 
 ## Sobre o projeto
 
