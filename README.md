@@ -16,7 +16,7 @@
 
 ### Pré-requisitos
 
-- [Git](https://git-scm.com/download/), [Node.js](https://nodejs.org/en/download/), [React.js]
+- [Git](https://git-scm.com/download/), [Node.js](https://nodejs.org/en/download/)
 
 ### Executando o projeto
 
