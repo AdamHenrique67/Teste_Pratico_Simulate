@@ -9,12 +9,10 @@ import axios, {AxiosError} from 'axios'
 type Pessoa = {
   id: number
   nome: string
-  idade: number
+  idade: string
 }
 
 export function Header () {
-  
-
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);  
 
   function addPessoa() {
@@ -23,7 +21,7 @@ export function Header () {
       {
         id: Date.now(),
         nome: '',
-        idade: 0,
+        idade: '',
       },
     ])
   }
@@ -63,9 +61,13 @@ export function Header () {
         "quantidadeBeneficiarios": pessoas.length,
         "pessoas": pessoas
       })
+      alert("Simulação Realizada com sucesso")
     } catch(err: AxiosError | any) {
-      console.log(err)
-      alert(err.response.data.message)
+      if(err.response.data.error){
+        alert(err.response.data.error)
+      }else{
+        alert(err.response.data.message)
+      }
     }
     
   }
@@ -102,7 +104,7 @@ export function Header () {
                       </div>
 
                       <div className='flex flex-col gap-2'>
-                        <Input id='idade' name='idade' type='number' value={Number(pessoa.idade)} placeholder='Informe a idade'
+                        <Input id='idade' name='idade' type='number' value={pessoa.idade ? Number(pessoa.idade) : ''} placeholder='Informe a idade'
                         onChange={(event) => handleInputChange(pessoa.id, event)}/>
                       </div>
 

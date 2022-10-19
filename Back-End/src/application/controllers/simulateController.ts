@@ -1,12 +1,13 @@
 import { Simulate } from "@/src/domain/contracts";
-import { badRequest, ok } from "@/src/application/helpers";
-type Pessoa = {
+import { badRequest, HttpResponse, ok } from "@/src/application/helpers";
+
+export type Pessoa = {
   id: number
   nome: string
   idade: number
 }
 
-type HttpRequest = {
+export type HttpRequest = {
   registro: string
   quantidadeBeneficiarios: number
   pessoas: Pessoa[]
@@ -15,12 +16,12 @@ type HttpRequest = {
 export class SimulateController {
   constructor(private readonly simulatePlan: Simulate){}
 
-  async handle(req: HttpRequest): Promise<any> {
+  async handle(req: HttpRequest): Promise<HttpResponse> {
     try{
       const result = await this.simulatePlan.simulate(req)
       return ok(result)
-    }catch(error){
-      return badRequest(new Error("InvalidReg"))
+    }catch{
+      return badRequest(new Error("Registro Inválido"))
     }
     
   }
