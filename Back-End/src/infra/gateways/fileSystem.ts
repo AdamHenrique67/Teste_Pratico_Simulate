@@ -6,7 +6,7 @@ export class FileSystem implements FileJson, WriteFileJson {
 
   async writeDataFile (params: WriteFileJson.Params): Promise<WriteFileJson.Result> {
     const data = JSON.stringify(params, null, 2)
-    fs.writeFileSync('./src/jsons/proposta.json', data, 'utf-8')
+    fs.writeFileSync('./proposta.json', data, 'utf-8')
   }
 
   async getDataFiles (): Promise<FileJson.Result> {
