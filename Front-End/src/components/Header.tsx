@@ -2,21 +2,74 @@ import { Logo } from './Logo'
 import { CreateSimulate } from './CreateSimulate'
 import * as Dialog from '@radix-ui/react-dialog';
 import { Input } from './Form/Input'
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import axios, {AxiosError} from 'axios'
 
 
+type Pessoa = {
+  key: number
+  nome: string
+  idade: number
+}
+
+type PessoaDados = {
+  nome: string
+  idade: number
+}
+
 export function Header () {
+  
+
+  const [pessoas, setPessoas] = useState<Pessoa[]>([]);  
+
+  const [pessoasData, setPessoasData] = useState<PessoaDados[]>([]); 
+
+
+  function addPessoa() {
+    setPessoas((prevState) => [
+      ...prevState,
+      {
+        nome: '',
+        idade: 0,
+        key: Date.now()
+      },
+    ])
+  }
+
+  function remove(key: number) {
+    setPessoas((prevState) =>
+    prevState.filter((pessoa) => pessoa.key !== key)
+    );
+  }
+
+  function handleInputChange(key: number, event: React.ChangeEvent<HTMLInputElement>) {
+    setPessoas((prevState) => {
+      const newState = prevState.map((pessoa) => {
+        if(pessoa.key === key) {
+          return {
+            ...pessoa,
+            [event.target.name]: event.target.value,
+          }
+        }
+        return pessoa
+
+      })
+      return newState;
+    })
+  }
 
   async function handleSimulate(event: FormEvent){
     event.preventDefault()
 
     const formData = new FormData(event.target as HTMLFormElement)
     const data = Object.fromEntries(formData)
-
+    
+    console.log(pessoas)
     try {
       await axios.post('http://localhost:8080/simulate',{
-        "registro": data.registro
+        "registro": data.registro,
+        "quantidadeBeneficiarios": pessoas.length,
+        "pessoas": pessoas
       })
     } catch(err: AxiosError | any) {
       alert(err.response.data.message)
@@ -33,10 +86,10 @@ export function Header () {
         <CreateSimulate />
         <Dialog.Portal>
           <Dialog.Overlay className='bg-black/30 inset-0 fixed'>
-            <Dialog.Content className='fixed bg-[#2A2634] py-8 px-10 text-white top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480px] shadow-lg shadow-black/25'>
+            <Dialog.Content className='fixed bg-[#2A2634] py-8 px-10 text-white top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[800px] shadow-lg shadow-black/25'>
 
-              <Dialog.Title className='text-3xl font-black'>Simule o valor do Plano</Dialog.Title>
-                <form onSubmit={handleSimulate} className="mt-8">
+              <Dialog.Title className='text-3xl font-black mt-2'>Simule o valor do Plano</Dialog.Title>
+                <form onSubmit={handleSimulate} className="className='mt-8 flex flex-col gap-4'">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="reg">Qual o registro do Plano?</label>
                     <Input 
@@ -44,8 +97,34 @@ export function Header () {
                       name="registro"
                       type="text" 
                       placeholder="Selecione o registro do plano"
-                      className="bg-zinc-900 py-3 px-4 rounded text-sm placeholder:text-zinc-500"  
                     />
+                  </div>
+                  
+                  <h1 className='mt-2'>Pessoas</h1>
+                  {pessoas.map((pessoa) => (
+                    <div className='grid grid-cols-3 gap-6 mt-2'>
+                      <div className='flex flex-col gap-2'>
+                        <Input id='nome' name='nome' type='text' value={pessoa.nome} placeholder='Informe o nome' 
+                        onChange={(event) => handleInputChange(pessoa.key, event)}/>
+                      </div>
+
+                      <div className='flex flex-col gap-2'>
+                        <Input id='idade' name='idade' type='number' value={pessoa.idade} placeholder='Informe a idade'
+                        onChange={(event) => handleInputChange(pessoa.key, event)}/>
+                      </div>
+
+                      <div className='flex flex-1 gap-2'>
+                        <button  type="button" onClick={() => remove(pessoa.key)} className='bg-red-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-red-700' >
+                        Apagar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <div className="flex-1 mt-2">
+                    <button onClick={addPessoa} className='bg-green-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-green-700'>
+                      Adicionar Pessoas
+                    </button>                  
                   </div>
 
                   <footer className='mt-4 flex justify-end gap-4'>
