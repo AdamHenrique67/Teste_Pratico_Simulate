@@ -30,9 +30,14 @@ https://github.com/AdamHenrique67/Teste_Pratico_Simulate.git && cd Teste_Pratico
 **2** - Use o comandos abaixo para abrir o VSCode e rodar o Back-End
 
 ```sh
+code .
+```
+**3** - No terminal do VSCode use os comandos abaixo
+
+```sh
 cd Back-End && npm install && npm start
 ```
-**2** - Volte ao primeiro terminal e use os comandos abaixo para rodar o Front-End
+**4** - Volte ao primeiro terminal e use os comandos abaixo para rodar o Front-End
 
 ```sh
 cd Front-End && npm install && npm start
