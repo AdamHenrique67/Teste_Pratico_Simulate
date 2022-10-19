@@ -3,6 +3,7 @@ export interface Simulate {
 }
 
 export type Pessoa = {
+  id: number
   nome: string
   idade: number
 }

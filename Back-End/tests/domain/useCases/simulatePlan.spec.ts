@@ -34,9 +34,11 @@ describe('savePlan', () => {
       registro: 'reg1',
       quantidadeBeneficiarios: 2,
       pessoas: [{
+        id: 1,
         nome: 'Joao',
         idade: 17
       }, {
+        id: 2,
         nome: 'Adam',
         idade: 39
       }]
@@ -54,10 +56,12 @@ describe('savePlan', () => {
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
+        id: 1,
         nome: 'Joao',
         idade: 17
       },
       {
+        id: 2,
         nome: 'Adam',
         idade: 0
       }]
@@ -75,10 +79,12 @@ describe('savePlan', () => {
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
+        id: 1,
         nome: 'Joao',
         idade: 18
       },
       {
+        id: 2,
         nome: 'Adam',
         idade: 40
       }]
@@ -95,10 +101,12 @@ describe('savePlan', () => {
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
+        id: 1,
         nome: 'Joao',
         idade: 41
       },
       {
+        id: 2,
         nome: 'Adam',
         idade: 50
       }]
@@ -115,10 +123,12 @@ describe('savePlan', () => {
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
+        id: 1,
         nome: 'Joao',
         idade: -1
       },
       {
+        id: 2,
         nome: 'Adam',
         idade: 50
       }]
@@ -134,10 +144,12 @@ describe('savePlan', () => {
       quantidadeBeneficiarios: 2,
       pessoas: [
         {
+        id: 1,
         nome: 'Joao',
         idade: 18
       },
       {
+        id:2,
         nome: 'Adam',
         idade: 40
       }]

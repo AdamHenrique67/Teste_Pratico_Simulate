@@ -16,6 +16,7 @@ router.post('/simulate',celebrate({
     quantidadeBeneficiarios: Joi.number().min(1).required(),
     pessoas: Joi.array().items(
       Joi.object().keys({
+        id: Joi.number(),
         nome: Joi.string().required(),
         idade: Joi.number().min(0).required()
     })).min(1).required(),

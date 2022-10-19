@@ -7,12 +7,7 @@ import axios, {AxiosError} from 'axios'
 
 
 type Pessoa = {
-  key: number
-  nome: string
-  idade: number
-}
-
-type PessoaDados = {
+  id: number
   nome: string
   idade: number
 }
@@ -22,30 +17,27 @@ export function Header () {
 
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);  
 
-  const [pessoasData, setPessoasData] = useState<PessoaDados[]>([]); 
-
-
   function addPessoa() {
     setPessoas((prevState) => [
       ...prevState,
       {
+        id: Date.now(),
         nome: '',
         idade: 0,
-        key: Date.now()
       },
     ])
   }
 
-  function remove(key: number) {
+  function remove(id: number) {
     setPessoas((prevState) =>
-    prevState.filter((pessoa) => pessoa.key !== key)
+    prevState.filter((pessoa) => pessoa.id !== id)
     );
   }
 
-  function handleInputChange(key: number, event: React.ChangeEvent<HTMLInputElement>) {
+  function handleInputChange(id: number, event: React.ChangeEvent<HTMLInputElement>) {
     setPessoas((prevState) => {
       const newState = prevState.map((pessoa) => {
-        if(pessoa.key === key) {
+        if(pessoa.id === id) {
           return {
             ...pessoa,
             [event.target.name]: event.target.value,
@@ -72,6 +64,7 @@ export function Header () {
         "pessoas": pessoas
       })
     } catch(err: AxiosError | any) {
+      console.log(err)
       alert(err.response.data.message)
     }
     
@@ -105,16 +98,16 @@ export function Header () {
                     <div className='grid grid-cols-3 gap-6 mt-2'>
                       <div className='flex flex-col gap-2'>
                         <Input id='nome' name='nome' type='text' value={pessoa.nome} placeholder='Informe o nome' 
-                        onChange={(event) => handleInputChange(pessoa.key, event)}/>
+                        onChange={(event) => handleInputChange(pessoa.id, event)}/>
                       </div>
 
                       <div className='flex flex-col gap-2'>
-                        <Input id='idade' name='idade' type='number' value={pessoa.idade} placeholder='Informe a idade'
-                        onChange={(event) => handleInputChange(pessoa.key, event)}/>
+                        <Input id='idade' name='idade' type='number' value={Number(pessoa.idade)} placeholder='Informe a idade'
+                        onChange={(event) => handleInputChange(pessoa.id, event)}/>
                       </div>
 
                       <div className='flex flex-1 gap-2'>
-                        <button  type="button" onClick={() => remove(pessoa.key)} className='bg-red-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-red-700' >
+                        <button  type="button" onClick={() => remove(pessoa.id)} className='bg-red-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-red-700' >
                         Apagar
                         </button>
                       </div>
@@ -122,7 +115,7 @@ export function Header () {
                   ))}
                   
                   <div className="flex-1 mt-2">
-                    <button onClick={addPessoa} className='bg-green-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-green-700'>
+                    <button type="button" onClick={addPessoa} className='bg-green-600 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-green-700'>
                       Adicionar Pessoas
                     </button>                  
                   </div>

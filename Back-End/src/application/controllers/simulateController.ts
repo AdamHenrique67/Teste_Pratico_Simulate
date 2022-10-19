@@ -1,6 +1,7 @@
 import { Simulate } from "@/src/domain/contracts";
 import { badRequest, ok } from "@/src/application/helpers";
 type Pessoa = {
+  id: number
   nome: string
   idade: number
 }
