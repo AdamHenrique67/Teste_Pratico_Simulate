@@ -51,7 +51,6 @@ export function Modal() {
     const formData = new FormData(event.target as HTMLFormElement)
     const data = Object.fromEntries(formData)
     
-    console.log(pessoas)
     try {
       await axios.post('http://localhost:8080/simulate',{
         "registro": data.registro,

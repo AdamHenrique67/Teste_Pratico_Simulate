@@ -4,12 +4,6 @@ module.exports = {
     './src/**/*.tsx',
     './index.html'
 ,  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        background: "url(./planium.png)"
-      },
-    },
-  },
+  theme: {},
   plugins: [],
 }
