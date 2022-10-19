@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/main/server",
-    "build": "rimraf dist && tsc -p tsconfig-build.json",
-    "dev": "tsnd --respawn ./src/index.ts",
-    "test": "jest --passWithNoTests --no-cache --runInBand",
-    "test:watch": "npm test -- --watch"
+    "start": "rimraf dist && tsc -p tsconfig-build.json && node dist/main/server",
+    "test": "jest --passWithNoTests --no-cache --runInBand"
   },
   "keywords": [],
   "author": "",
